@@ -1,16 +1,19 @@
+import FeedBack from "./feedback/Feedback";
+
+
 export const App = () => {
   return (
     <div
       style={{
-        height: '100vh',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        padding: '20px',
         fontSize: 40,
-        color: '#010101'
+        color: '#010101',
       }}
     >
-      React homework template
+      <FeedBack />
     </div>
   );
 };
