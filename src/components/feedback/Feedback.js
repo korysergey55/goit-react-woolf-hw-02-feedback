@@ -11,36 +11,34 @@ class FeedBack extends Component {
     neutral: 0,
     bad: 0,
   }
+  onLeaveFeedback = (evt) => {
+    this.setState((prev) => ({ ...prev, [evt.target.name]: prev[evt.target.name] + 1 }))
+  }
+  countTotalFeedback = () => {
+    const total = Object.values(this.state).reduce((acc, item) => {
+      return acc + item
+    }, 0)
+    return total
+  }
+  positivePercentage = () => {
+    const positiveFeedback = Math.round((this.state.good / this.countTotalFeedback()) * 100)
+    return positiveFeedback
+  }
+
   render() {
-    const onLeaveFeedback = (evt) => {
-      this.setState((prev) => ({ ...prev, [evt.target.name]: prev[evt.target.name] + 1 }))
-    }
-
-    const countTotalFeedback = () => {
-      const total = Object.values(this.state).reduce((acc, item) => {
-        return acc + item
-      }, 0)
-      return total
-    }
-
-    const positivePercentage = () => {
-      const positiveFeedback = Math.round((this.state.good / countTotalFeedback()) * 100)
-      return positiveFeedback
-    }
-
     return (
       <section className={styles.container} >
         <Section title={'Please leave feedback'}>
           <FeedbackOptions
             options={Object.keys(this.state)}
-            onLeaveFeedback={onLeaveFeedback} />
+            onLeaveFeedback={this.onLeaveFeedback} />
         </Section>
 
         <Section title={'Statistics'}>
           <Statistic
             state={this.state}
-            countTotalFeedback={countTotalFeedback}
-            positivePercentage={positivePercentage} />
+            countTotalFeedback={this.countTotalFeedback}
+            positivePercentage={this.positivePercentage} />
         </Section>
       </section>
     );
