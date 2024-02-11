@@ -1,22 +1,24 @@
 import React from 'react'
 import styles from './styles.module.css'
+import { nanoid } from 'nanoid'
 
 const FeedbackOptions = ({ options, onLeaveFeedback }) => {
   return (
-    <div className={styles.btnWripper}>
+
+    < div className={styles.btnWripper} >
       {
-        options?.map((item, index) => (
+        options.map((option) => (
           <button
-            key={index}
+            key={nanoid()}
             className={styles.button}
             type='button'
-            name={item}
-            onClick={onLeaveFeedback}>
-            {item.toUpperCase()}
+            name={option}
+            onClick={() => onLeaveFeedback(option)}>
+            {option.toUpperCase()}
           </button>
         ))
       }
-    </div>
+    </ div >
   );
 }
 
